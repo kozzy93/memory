@@ -1,10 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  faGear,
-  faPlay,
-  faPlus,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-categories",
@@ -12,10 +7,8 @@ import {
   styleUrls: ["./categories.component.css"],
 })
 export class CategoriesComponent implements OnInit {
-  faTrash = faTrash;
-  faGear = faGear;
-  faPlay = faPlay;
   faPlus = faPlus;
+  catName = "Jakaś kategoria";
 
   constructor() {}
 
