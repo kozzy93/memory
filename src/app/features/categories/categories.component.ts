@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Category } from "../../models/caterory-model";
 
 @Component({
   selector: "app-categories",
@@ -8,9 +9,15 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 })
 export class CategoriesComponent implements OnInit {
   faPlus = faPlus;
-  catName = "Jakaś kategoria";
+  newCategoryName = "";
+  categories: Category[] = [{ name: "Dom" }, { name: "Rodzina" }];
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  addCategory() {
+    this.categories.push({ name: this.newCategoryName });
+    this.newCategoryName = "";
+  }
 }
