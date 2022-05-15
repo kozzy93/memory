@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Category } from "../../models/caterory-model";
+import { CategoriesService } from "../../services/categories.service";
 
 @Component({
   selector: "app-categories",
@@ -10,18 +11,32 @@ import { Category } from "../../models/caterory-model";
 export class CategoriesComponent implements OnInit {
   faPlus = faPlus;
   newCategoryName = "";
-  categories: Category[] = [{ name: "Dom" }, { name: "Rodzina" }];
+  categories: Category[] = [];
 
-  constructor() {}
+  constructor(private categoriesService: CategoriesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.categoriesService
+      .getCategories()
+      .subscribe(categories => (this.categories = categories));
+  }
 
   addCategory() {
-    this.categories.push({ name: this.newCategoryName });
-    this.newCategoryName = "";
+    this.categoriesService
+      .addCategory({ name: this.newCategoryName })
+      .subscribe(category => {
+        this.categories.push(category);
+        this.newCategoryName = "";
+      });
   }
 
   removeCategory(category: Category) {
-    this.categories.splice(this.categories.indexOf(category), 1);
+    if (category.id) {
+      this.categoriesService
+        .removeCategory(category.id)
+        .subscribe(() =>
+          this.categories.splice(this.categories.indexOf(category), 1)
+        );
+    }
   }
 }
